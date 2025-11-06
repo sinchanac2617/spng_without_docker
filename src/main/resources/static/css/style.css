@@ -1,0 +1,4 @@
+/* Extra polish */
+body { background: #fcfcfd; }
+.gallery-card { transition: box-shadow .25s ease; }
+.gallery-card:hover { box-shadow: 0 12px 28px rgba(0,0,0,.12); }
