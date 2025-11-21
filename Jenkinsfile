@@ -76,7 +76,7 @@ pipeline {
 
                 // 2. Restart the application on the remote server
                 // Example: Stop existing service, then start the new JAR
-                sh "ssh ${DEPLOY_USER}@${DEPLOY_HOST} \"sudo systemctl restart springboot-app.service\""
+                sh "ssh ${env.DEPLOY_USER}@${env.DEPLOY_HOST} \"sudo systemctl restart springboot-app.service\""
             }
         }
     }
