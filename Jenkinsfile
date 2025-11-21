@@ -54,7 +54,7 @@ stages {
             // This requires the 'Publish Over SSH' plugin to be configured in Jenkins
             sshPublisher(publishers: [
                 sshPublisherDesc(
-                    configName: 'AppServer', // MUST match the name from Configure System
+                    configName: 'jenkins-deploy', // MUST match the name from Configure System
                     transfers: [
                         sshTransfer(
                             sourceFiles: "target/${APP_NAME}", // Source file on Jenkins server
