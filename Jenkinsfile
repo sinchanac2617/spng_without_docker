@@ -5,9 +5,9 @@ pipeline {
 environment {
     // Change this to match your Spring Boot JAR name in /target directory
     APP_NAME = 'my-springboot-app-0.0.1-SNAPSHOT.jar' 
-    REMOTE_USER = 'ec2-user' // User on App Server
-    REMOTE_HOST = '<App_Server_Private_IP>' 
-    DEPLOY_DIR = '/home/ec2-user/app'
+    REMOTE_USER = 'jenkins-deploy' // User on App Server
+    REMOTE_HOST = '172.31.20.108' 
+    DEPLOY_DIR = '/home/jenkins-deploy/app'
 }
 
 stages {
