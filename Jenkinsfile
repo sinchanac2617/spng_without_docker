@@ -71,18 +71,19 @@ pipeline {
 }
 
 
-        stage('Restart Service on App Server') {
-            steps {
-                echo "Restarting systemd service ${APP_NAME}.service on ${APP_SERVER}..."
-                sshagent (credentials: [env.SSH_CRED_ID]) {
-                    sh """
-                        set -ex
-                        ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${APP_SERVER} \\
-                          'sudo systemctl restart ${APP_NAME}.service && sudo systemctl status ${APP_NAME}.service --no-pager'
-                    """
-                }
-            }
+     stage('Restart Service on App Server') {
+    steps {
+        echo "Restarting systemd service ${APP_NAME}.service on ${APP_SERVER}..."
+        sshagent (credentials: [env.SSH_CRED_ID]) {
+            sh """
+                set -ex
+                ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${APP_SERVER} \\
+                  'sudo -n systemctl restart ${APP_NAME}.service && sudo -n systemctl status ${APP_NAME}.service --no-pager'
+            """
         }
+    }
+}
+
 
         stage('Health Check') {
             steps {
