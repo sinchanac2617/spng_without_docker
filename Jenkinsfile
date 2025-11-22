@@ -41,32 +41,35 @@ pipeline {
             }
         }
 
-        stage('Copy Artifact to App Server') {
-            steps {
-                echo "Copying JAR to app server ${APP_SERVER}..."
-                sshagent (credentials: [env.SSH_CRED_ID]) {
-                    sh """
-                        set -ex
-                        # Exact jar file that must exist after build
-                        JAR_FILE="target/${JAR_NAME}"
+       stage('Copy Artifact to App Server') {
+    steps {
+        echo "Copying JAR to app server ${APP_SERVER}..."
+        sshagent (credentials: [env.SSH_CRED_ID]) {
+            sh """
+                set -ex
 
-                        if [ ! -f "\$JAR_FILE" ]; then
-                          echo "ERROR: JAR not found: \$JAR_FILE"
-                          ls -R
-                          exit 1
-                        fi
+                echo "Listing target directory:"
+                ls -l target || true
 
-                        echo "Built JAR: \$JAR_FILE"
+                JAR_FILE="target/demo-0.0.1-SNAPSHOT.jar"
 
-                        # Ensure deploy directory exists on app server
-                        ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${APP_SERVER} "mkdir -p ${DEPLOY_DIR}"
+                if [ ! -f "\$JAR_FILE" ]; then
+                  echo "ERROR: JAR not found at \$JAR_FILE"
+                  exit 1
+                fi
 
-                        # Copy jar to app server with same name
-                        scp -o StrictHostKeyChecking=no "\$JAR_FILE" ${DEPLOY_USER}@${APP_SERVER}:${DEPLOY_DIR}/${JAR_NAME}
-                    """
-                }
-            }
+                echo "Using JAR file: \$JAR_FILE"
+
+                # Ensure deploy directory exists
+                ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${APP_SERVER} "mkdir -p ${DEPLOY_DIR}"
+
+                # Copy jar
+                scp -o StrictHostKeyChecking=no "\$JAR_FILE" ${DEPLOY_USER}@${APP_SERVER}:${DEPLOY_DIR}/${JAR_NAME}
+            """
         }
+    }
+}
+
 
         stage('Restart Service on App Server') {
             steps {
