@@ -4,7 +4,7 @@ pipeline {
     environment {
         APP_SERVER_IP = '172.31.16.31'
         DEPLOY_USER   = 'deploy'
-        JAR_NAME      = 'yourapp-0.0.1-SNAPSHOT.jar'
+        JAR_NAME      = 'demo-0.0.1-SNAPSHOT.jar '
         REMOTE_PATH   = '/opt/myapp/app.jar'
     }
 
