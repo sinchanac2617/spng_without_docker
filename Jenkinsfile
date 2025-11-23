@@ -5,7 +5,7 @@ pipeline {
         APP_SERVER_IP = '172.31.29.92'      // private IP of the app server
         DEPLOY_USER   = 'deploy'             // SSH user
         JAR_NAME      = 'demo-0.0.1-SNAPSHOT.jar'  // update according to actual name
-        REMOTE_PATH   = '/home/myapp/app.jar'
+        REMOTE_PATH   = '/opt/myapp/app.jar'
     }
 
     stages {
