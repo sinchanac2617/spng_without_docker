@@ -1,202 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Food Fiesta | World on Your Plate</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footwear Collection</title>
 
-  <style>
-    /* --------- Global Styles --------- */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 18px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+        .card {
+            background-color: white;
+            width: 260px;
+            margin: 15px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        .card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+        .card h3 {
+            margin: 12px 0;
+            color: #333;
+        }
+        .card button {
+            background-color: #ff4d4d;
+            border: none;
+            padding: 10px;
+            color: white;
+            width: 100%;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .card button:hover {
+            background-color: red;
+        }
+    </style>
+</head>
 
-    body {
-      background: #f9f9fb;
-      color: #222;
-      line-height: 1.6;
-    }
+<body>
+    <header>👟 Premium Footwear Collection – Flat 50% OFF!</header>
 
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
+    <div class="container">
 
-    img {
-      max-width: 100%;
-      display: block;
-    }
+        <div class="card">
+            <img src="https://i.ibb.co/jTxdGgf/sneakers.jpg" alt="Sneakers">
+            <h3>Men Sneakers</h3>
+            <button>Shop Now</button>
+        </div>
 
-    .container {
-      width: 92%;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+        <div class="card">
+            <img src="https://i.ibb.co/mtSb8Zs/sandals.jpg" alt="Sandals">
+            <h3>Women Sandals</h3>
+            <button>Shop Now</button>
+        </div>
 
-    /* --------- Navbar --------- */
-    header {
-      background: #ffffff;
-      border-bottom: 1px solid #e0e0e0;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
+        <div class="card">
+            <img src="https://i.ibb.co/j4bHYyX/kids-shoes.jpg" alt="Kids Shoes">
+            <h3>Kids Shoes</h3>
+            <button>Shop Now</button>
+        </div>
 
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.7rem 0;
-    }
+        <div class="card">
+            <img src="https://i.ibb.co/9hQzWmY/formal.jpg" alt="Formal Shoes">
+            <h3>Formal Shoes</h3>
+            <button>Shop Now</button>
+        </div>
 
-    .logo {
-      font-weight: 800;
-      font-size: 1.3rem;
-    }
+    </div>
 
-    .logo span {
-      font-weight: 400;
-      font-size: 0.8rem;
-      margin-left: 4px;
-      opacity: 0.7;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 1.5rem;
-      font-size: 0.95rem;
-    }
-
-    .nav-links a {
-      position: relative;
-      padding-bottom: 0.2rem;
-    }
-
-    .nav-links a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -2px;
-      width: 0;
-      height: 2px;
-      background: #ff7043;
-      transition: width 0.2s ease;
-    }
-
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
-    /* --------- Hero Section --------- */
-    .hero {
-      padding: 2.5rem 0 1.5rem;
-      display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-      gap: 2rem;
-      align-items: center;
-    }
-
-    .hero-text h1 {
-      font-size: clamp(2rem, 3vw, 2.8rem);
-      margin-bottom: 0.7rem;
-    }
-
-    .hero-text p {
-      margin-bottom: 1.2rem;
-      color: #555;
-    }
-
-    .hero-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .tag-pill {
-      font-size: 0.8rem;
-      padding: 0.25rem 0.7rem;
-      border-radius: 999px;
-      background: #ffe0d0;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 0.8rem;
-      flex-wrap: wrap;
-    }
-
-    .btn-primary,
-    .btn-ghost {
-      border-radius: 999px;
-      padding: 0.45rem 1.1rem;
-      border: none;
-      cursor: pointer;
-      font-size: 0.9rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .btn-primary {
-      background: #ff7043;
-      color: white;
-    }
-
-    .btn-primary:hover {
-      opacity: 0.95;
-    }
-
-    .btn-ghost {
-      background: transparent;
-      border: 1px solid #ddd;
-    }
-
-    .btn-ghost:hover {
-      background: #f5f5f5;
-    }
-
-    .hero-image {
-      position: relative;
-      padding: 1.2rem;
-      background: #fff;
-      border-radius: 1.2rem;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.05);
-    }
-
-    .hero-image-main {
-      border-radius: 0.9rem;
-      height: 220px;
-      background: url("https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg") center/cover no-repeat;
-    }
-
-    .hero-badge {
-      position: absolute;
-      bottom: 1.5rem;
-      left: 1.5rem;
-      background: #ffffffee;
-      border-radius: 0.6rem;
-      padding: 0.6rem 0.8rem;
-      font-size: 0.8rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
-    }
-
-    .hero-badge span:first-child {
-      font-weight: 600;
-    }
-
-    /* --------- Section titles --------- */
-    section {
-      padding: 2rem 0;
-    }
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.2re…
+</body>
+</html>
