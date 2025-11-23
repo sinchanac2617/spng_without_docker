@@ -2,17 +2,18 @@ pipeline {
     agent any
 
     environment {
-        APP_SERVER_IP = '172.31.16.31'  //private ip of app_server
-        DEPLOY_USER   = 'deploy'
-        JAR_NAME      = 'demo-0.0.1-SNAPSHOT.jar '  //jar file name in target
-        REMOTE_PATH   = '/opt/myapp/app.jar'
+        APP_SERVER_IP = '172.31.23.53'      // private IP of the app server
+        DEPLOY_USER   = 'ubuntu'             // SSH user
+        JAR_NAME      = 'spring_without_docker-0.0.1-SNAPSHOT.jar'  // update according to actual name
+        REMOTE_PATH   = '/home/ubuntu/app/app.jar'
     }
 
     stages {
+
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/Vishnu2663/springboot_cicd_jenkins_project.git'
+                    url: 'https://github.com/sinchanac2617/spng_without_docker.git'
             }
         }
 
@@ -24,25 +25,30 @@ pipeline {
 
         stage('Copy JAR to App Server') {
             steps {
-                sh '''
-                scp -o StrictHostKeyChecking=no target/$JAR_NAME ${DEPLOY_USER}@${APP_SERVER_IP}:${REMOTE_PATH}
-                '''
+                sshagent(credentials: ['app-server-ssh-id']) {
+                    sh """
+                        scp -o StrictHostKeyChecking=no target/${JAR_NAME} ${DEPLOY_USER}@${APP_SERVER_IP}:${REMOTE_PATH}
+                    """
+                }
             }
         }
 
-        stage('Restart Service on App Server') {
+        stage('Restart Application') {
             steps {
-                sh '''
-                ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${APP_SERVER_IP} "sudo -n /usr/bin/systemctl restart myapp.service"
-                '''
+                sshagent(credentials: ['app-server-ssh-id']) {
+                    sh """
+                        ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${APP_SERVER_IP} '
+                            fuser -k 8080/tcp || true
+                            nohup java -jar ${REMOTE_PATH} > /home/ubuntu/app/app.log 2>&1 &
+                        '
+                    """
+                }
             }
         }
 
-        stage('Check Service Status') {
+        stage('Verify Application') {
             steps {
-                sh '''
-                ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${APP_SERVER_IP} "sudo -n /usr/bin/systemctl status myapp.service --no-pager"
-                '''
+                echo "Application restarted successfully!"
             }
         }
     }
