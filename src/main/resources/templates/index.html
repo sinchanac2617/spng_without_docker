@@ -1,95 +1,759 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Footwear Collection</title>
+  <meta charset="UTF-8" />
+  <title>Food Fiesta | World on Your Plate</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: black;
-            color: white;
-            text-align: center;
-            padding: 18px;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 20px;
-        }
-        .card {
-            background-color: white;
-            width: 260px;
-            margin: 15px;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 0 10px rgba(0,0,0,0.2);
-            text-align: center;
-        }
-        .card img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-        }
-        .card h3 {
-            margin: 12px 0;
-            color: #333;
-        }
-        .card button {
-            background-color: #ff4d4d;
-            border: none;
-            padding: 10px;
-            color: white;
-            width: 100%;
-            font-size: 16px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .card button:hover {
-            background-color: red;
-        }
-    </style>
+  <style>
+    /* --------- Global Styles --------- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: #f9f9fb;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: 92%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* --------- Navbar --------- */
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid #e0e0e0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.7rem 0;
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.3rem;
+    }
+
+    .logo span {
+      font-weight: 400;
+      font-size: 0.8rem;
+      margin-left: 4px;
+      opacity: 0.7;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a {
+      position: relative;
+      padding-bottom: 0.2rem;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0;
+      height: 2px;
+      background: #ff7043;
+      transition: width 0.2s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* --------- Hero Section --------- */
+    .hero {
+      padding: 2.5rem 0 1.5rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      margin-bottom: 0.7rem;
+    }
+
+    .hero-text p {
+      margin-bottom: 1.2rem;
+      color: #555;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tag-pill {
+      font-size: 0.8rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      background: #ffe0d0;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary,
+    .btn-ghost {
+      border-radius: 999px;
+      padding: 0.45rem 1.1rem;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .btn-primary {
+      background: #ff7043;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.95;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid #ddd;
+    }
+
+    .btn-ghost:hover {
+      background: #f5f5f5;
+    }
+
+    .hero-image {
+      position: relative;
+      padding: 1.2rem;
+      background: #fff;
+      border-radius: 1.2rem;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.05);
+    }
+
+    .hero-image-main {
+      border-radius: 0.9rem;
+      height: 220px;
+      background: url("https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg") center/cover no-repeat;
+    }
+
+    .hero-badge {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      background: #ffffffee;
+      border-radius: 0.6rem;
+      padding: 0.6rem 0.8rem;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .hero-badge span:first-child {
+      font-weight: 600;
+    }
+
+    /* --------- Section titles --------- */
+    section {
+      padding: 2rem 0;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.2rem;
+      gap: 1rem;
+    }
+
+    .section-header h2 {
+      font-size: 1.4rem;
+    }
+
+    .section-header p {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    /* --------- Cuisine Filter (Template 1: Filter Chips + Cards Grid) --------- */
+    .cuisine-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .filter-chip {
+      padding: 0.3rem 0.9rem;
+      font-size: 0.85rem;
+      border-radius: 999px;
+      border: 1px solid #ddd;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .filter-chip.active {
+      background: #ff7043;
+      border-color: #ff7043;
+      color: white;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1rem;
+    }
+
+    .food-card {
+      background: #fff;
+      border-radius: 0.9rem;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .food-card-body {
+      padding: 0.7rem 0.8rem 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      font-size: 0.9rem;
+    }
+
+    .food-card-title {
+      font-weight: 600;
+    }
+
+    .food-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: #777;
+    }
+
+    .food-tag {
+      font-size: 0.75rem;
+      padding: 0.15rem 0.45rem;
+      border-radius: 999px;
+      background: #f3f3f3;
+    }
+
+    /* --------- Categories (Template 2: Horizontal category cards) --------- */
+    .category-row {
+      display: flex;
+      overflow-x: auto;
+      gap: 1rem;
+      padding-bottom: 0.3rem;
+      scrollbar-width: thin;
+    }
+
+    .category-card {
+      min-width: 190px;
+      background: #fff;
+      border-radius: 0.9rem;
+      padding: 0.9rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .category-card h3 {
+      font-size: 1rem;
+    }
+
+    .category-card ul {
+      list-style: none;
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    .category-card ul li::before {
+      content: "• ";
+      color: #ff7043;
+    }
+
+    /* --------- Template 3: Two-column list (Popular Combos) --------- */
+    .combo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+
+    .combo-card {
+      background: #fff;
+      border-radius: 0.9rem;
+      padding: 0.9rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+      display: grid;
+      grid-template-columns: 70px 1fr;
+      gap: 0.8rem;
+      align-items: center;
+      font-size: 0.88rem;
+    }
+
+    .combo-thumbnail {
+      width: 70px;
+      height: 70px;
+      border-radius: 0.6rem;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .combo-title {
+      font-weight: 600;
+      margin-bottom: 0.15rem;
+    }
+
+    .combo-desc {
+      color: #666;
+      font-size: 0.82rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .combo-meta {
+      font-size: 0.78rem;
+      color: #999;
+    }
+
+    /* --------- Footer --------- */
+    footer {
+      margin-top: 2rem;
+      padding: 1.4rem 0 1.8rem;
+      border-top: 1px solid #e0e0e0;
+      font-size: 0.85rem;
+      color: #777;
+    }
+
+    footer .footer-cols {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.8rem;
+    }
+
+    footer ul {
+      list-style: none;
+    }
+
+    footer h4 {
+      font-size: 0.9rem;
+      margin-bottom: 0.3rem;
+    }
+
+    /* --------- Responsive --------- */
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-image {
+        order: -1;
+      }
+
+      .nav-links {
+        display: none; /* For simplicity: hide links on small screens */
+      }
+    }
+  </style>
 </head>
-
 <body>
-    <header>👟 Premium Footwear Collection – Flat 50% OFF!</header>
 
-    <div class="container">
-
-        <div class="card">
-            <img src="https://i.ibb.co/jTxdGgf/sneakers.jpg" alt="Sneakers">
-            <h3>Men Sneakers</h3>
-            <button>Shop Now</button>
-        </div>
-
-        <div class="card">
-            <img src="https://i.ibb.co/mtSb8Zs/sandals.jpg" alt="Sandals">
-            <h3>Women Sandals</h3>
-            <button>Shop Now</button>
-        </div>
-
-        <div class="card">
-            <img src="https://i.ibb.co/j4bHYyX/kids-shoes.jpg" alt="Kids Shoes">
-            <h3>Kids Shoes</h3>
-            <button>Shop Now</button>
-        </div>
-
-        <div class="card">
-            <img src="https://i.ibb.co/9hQzWmY/formal.jpg" alt="Formal Shoes">
-            <h3>Formal Shoes</h3>
-            <button>Shop Now</button>
-        </div>
-
+  <!-- ================= HEADER / NAV ================= -->
+  <header>
+    <div class="container nav">
+      <div class="logo">
+        FoodFiesta
+        <span>World on your plate</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#cuisines">Cuisines</a>
+        <a href="#categories">Categories</a>
+        <a href="#combos">Popular Combos</a>
+      </nav>
     </div>
+  </header>
 
+  <!-- ================= HERO (Template: Big Banner) ================= -->
+  <main class="container">
+    <section class="hero">
+      <div class="hero-text">
+        <h1>Discover delicious food from every corner of the world.</h1>
+        <p>
+          Explore handpicked dishes across Indian, Italian, Chinese, Mexican cuisines and more.
+          Starters, main course, desserts and drinks — all in one place.
+        </p>
+
+        <div class="hero-tags">
+          <span class="tag-pill">Indian Thali</span>
+          <span class="tag-pill">Wood-fired Pizza</span>
+          <span class="tag-pill">Dim Sums</span>
+          <span class="tag-pill">Tacos</span>
+        </div>
+
+        <div class="hero-actions">
+          <button class="btn-primary">Browse All Cuisines ▸</button>
+          <button class="btn-ghost">View Dessert Specials</button>
+        </div>
+      </div>
+
+      <div class="hero-image">
+        <div class="hero-image-main"></div>
+        <div class="hero-badge">
+          <span>Today’s Highlight</span>
+          <span>Butter Chicken • Margherita Pizza • Sushi Platter</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CUISINES SECTION ================= -->
+    <section id="cuisines">
+      <div class="section-header">
+        <div>
+          <h2>Cuisines</h2>
+          <p>Filter through different cuisines and explore signature dishes.</p>
+        </div>
+      </div>
+
+      <!-- Template 1: Filter Chips + Card Grid -->
+      <div class="cuisine-filters">
+        <button class="filter-chip active" data-cuisine="all">All</button>
+        <button class="filter-chip" data-cuisine="indian">Indian</button>
+        <button class="filter-chip" data-cuisine="italian">Italian</button>
+        <button class="filter-chip" data-cuisine="chinese">Chinese</button>
+        <button class="filter-chip" data-cuisine="mexican">Mexican</button>
+      </div>
+
+      <div class="card-grid" id="cuisineCards">
+        <!-- Indian -->
+        <article class="food-card" data-cuisine="indian">
+          <img src="https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg" alt="Indian Thali">
+          <div class="food-card-body">
+            <div class="food-card-title">Royal Indian Thali</div>
+            <div class="food-meta">
+              <span>Indian</span>
+              <span>Main Course</span>
+            </div>
+            <div class="food-meta">
+              <span class="food-tag">Spicy</span>
+              <span>30 min</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="food-card" data-cuisine="indian">
+          <img src="https://images.pexels.com/photos/4194625/pexels-photo-4194625.jpeg" alt="Paneer Tikka">
+          <div class="food-card-body">
+            <div class="food-card-title">Paneer Tikka</div>
+            <div class="food-meta">
+              <span>Indian</span>
+              <span>Starter</span>
+            </div>
+            <div class="food-meta">
+              <span class="food-tag">Tandoor</span>
+              <span>15 min</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Italian -->
+        <article class="food-card" data-cuisine="italian">
+          <img src="https://images.pexels.com/photos/4109129/pexels-photo-4109129.jpeg" alt="Margherita Pizza">
+          <div class="food-card-body">
+            <div class="food-card-title">Margherita Pizza</div>
+            <div class="food-meta">
+              <span>Italian</span>
+              <span>Main Course</span>
+            </div>
+            <div class="food-meta">
+              <span class="food-tag">Wood-fired</span>
+              <span>20 min</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="food-card" data-cuisine="italian">
+          <img src="https://images.pexels.com/photos/1437267/pexels-photo-1437267.jpeg" alt="Pasta Alfredo">
+          <div class="food-card-body">
+            <div class="food-card-title">Pasta Alfredo</div>
+            <div class="food-meta">
+              <span>Italian</span>
+              <span>Main Course</span>
+            </div>
+            <div class="food-meta">
+              <span class="food-tag">Creamy</span>
+              <span>25 min</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Chinese -->
+        <article class="food-card" data-cuisine="chinese">
+          <img src="https://images.pexels.com/photos/884600/pexels-photo-884600.jpeg" alt="Veg Noodles">
+          <div class="food-card-body">
+            <div class="food-card-title">Veg Hakka Noodles</div>
+            <div class="food-meta">
+              <span>Chinese</span>
+              <span>Main Course</span>
+            </div>
+            <div class="food-meta">
+              <span class="food-tag">Wok Fried</span>
+              <span>18 min</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="food-card" data-cuisine="chinese">
+          <img src="https://images.pexels.com/photos/2092906/pexels-photo-2092906.jpeg" alt="Dimsum">
+          <div class="food-card-body">
+            <div class="food-card-title">Steamed Dimsums</div>
+            <div class="food-meta">
+              <span>Chinese</span>
+              <span>Starter</span>
+            </div>
+            <div class="food-meta">
+              <span class="food-tag">Light</span>
+              <span>12 min</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Mexican -->
+        <article class="food-card" data-cuisine="mexican">
+          <img src="https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg" alt="Tacos">
+          <div class="food-card-body">
+            <div class="food-card-title">Street Style Tacos</div>
+            <div class="food-meta">
+              <span>Mexican</span>
+              <span>Main Course</span>
+            </div>
+            <div class="food-meta">
+              <span class="food-tag">Zesty</span>
+              <span>15 min</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="food-card" data-cuisine="mexican">
+          <img src="https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg" alt="Nachos">
+          <div class="food-card-body">
+            <div class="food-card-title">Cheesy Nachos</div>
+            <div class="food-meta">
+              <span>Mexican</span>
+              <span>Starter</span>
+            </div>
+            <div class="food-meta">
+              <span class="food-tag">Cheesy</span>
+              <span>10 min</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= CATEGORIES SECTION ================= -->
+    <section id="categories">
+      <div class="section-header">
+        <div>
+          <h2>Food Categories</h2>
+          <p>Starters, main course, desserts and beverages in a different layout.</p>
+        </div>
+      </div>
+
+      <!-- Template 2: Horizontal scrollable cards for categories -->
+      <div class="category-row">
+        <div class="category-card">
+          <h3>Starters</h3>
+          <p>Kickstart your meal.</p>
+          <ul>
+            <li>Garlic Bread (Italian)</li>
+            <li>Paneer Tikka (Indian)</li>
+            <li>Spring Rolls (Chinese)</li>
+            <li>Nachos (Mexican)</li>
+          </ul>
+        </div>
+
+        <div class="category-card">
+          <h3>Main Course</h3>
+          <p>Hearty dishes to fill you up.</p>
+          <ul>
+            <li>Butter Chicken (Indian)</li>
+            <li>Margherita Pizza (Italian)</li>
+            <li>Kung Pao Veggies (Chinese)</li>
+            <li>Burrito Bowl (Mexican)</li>
+          </ul>
+        </div>
+
+        <div class="category-card">
+          <h3>Desserts</h3>
+          <p>Sweet endings.</p>
+          <ul>
+            <li>Gulab Jamun (Indian)</li>
+            <li>Tiramisu (Italian)</li>
+            <li>Mochi Ice Cream (Asian)</li>
+            <li>Churros (Mexican)</li>
+          </ul>
+        </div>
+
+        <div class="category-card">
+          <h3>Beverages</h3>
+          <p>Coolers & hot drinks.</p>
+          <ul>
+            <li>Mango Lassi (Indian)</li>
+            <li>Espresso (Italian)</li>
+            <li>Green Tea (Chinese)</li>
+            <li>Lime Margarita (Mexican)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= POPULAR COMBOS SECTION ================= -->
+    <section id="combos">
+      <div class="section-header">
+        <div>
+          <h2>Popular Combos</h2>
+          <p>Another template: compact two-column cards for quick picks.</p>
+        </div>
+      </div>
+
+      <!-- Template 3: Two-column grid list cards -->
+      <div class="combo-grid">
+        <div class="combo-card">
+          <div class="combo-thumbnail"
+               style="background-image:url('https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg');"></div>
+          <div>
+            <div class="combo-title">North Indian Platter</div>
+            <div class="combo-desc">Butter naan, dal makhani, paneer butter masala, salad & dessert.</div>
+            <div class="combo-meta">Cuisine: Indian • Category: Main Course</div>
+          </div>
+        </div>
+
+        <div class="combo-card">
+          <div class="combo-thumbnail"
+               style="background-image:url('https://images.pexels.com/photos/4109129/pexels-photo-4109129.jpeg');"></div>
+          <div>
+            <div class="combo-title">Pizza & Garlic Bread Box</div>
+            <div class="combo-desc">Classic margherita, cheesy garlic bread and herbed dip.</div>
+            <div class="combo-meta">Cuisine: Italian • Category: Main + Starter</div>
+          </div>
+        </div>
+
+        <div class="combo-card">
+          <div class="combo-thumbnail"
+               style="background-image:url('https://images.pexels.com/photos/884600/pexels-photo-884600.jpeg');"></div>
+          <div>
+            <div class="combo-title">Asian Street Box</div>
+            <div class="combo-desc">Veg noodles with stir-fry veggies and steamed dumplings.</div>
+            <div class="combo-meta">Cuisine: Chinese • Category: Starter + Main</div>
+          </div>
+        </div>
+
+        <div class="combo-card">
+          <div class="combo-thumbnail"
+               style="background-image:url('https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg');"></div>
+          <div>
+            <div class="combo-title">Mexican Fiesta Meal</div>
+            <div class="combo-desc">Tacos, nachos, salsa, guacamole and churros.</div>
+            <div class="combo-meta">Cuisine: Mexican • Category: Full Meal</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="container">
+      <div class="footer-cols">
+        <div>
+          <h4>FoodFiesta</h4>
+          <p>Sample food website template with cuisines and categories.</p>
+        </div>
+        <div>
+          <h4>Cuisines</h4>
+          <ul>
+            <li>Indian</li>
+            <li>Italian</li>
+            <li>Chinese</li>
+            <li>Mexican</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Categories</h4>
+          <ul>
+            <li>Starters</li>
+            <li>Main Course</li>
+            <li>Desserts</li>
+            <li>Beverages</li>
+          </ul>
+        </div>
+      </div>
+      <p>© 2025 FoodFiesta. Built as a sample HTML template.</p>
+    </div>
+  </footer>
+
+  <!-- ================= SIMPLE JS FOR CUISINE FILTER ================= -->
+  <script>
+    const filterChips = document.querySelectorAll(".filter-chip");
+    const cards = document.querySelectorAll(".food-card");
+
+    filterChips.forEach(chip => {
+      chip.addEventListener("click", () => {
+        const cuisine = chip.getAttribute("data-cuisine");
+
+        filterChips.forEach(c => c.classList.remove("active"));
+        chip.classList.add("active");
+
+        cards.forEach(card => {
+          if (cuisine === "all") {
+            card.style.display = "flex";
+          } else {
+            const cardCuisine = card.getAttribute("data-cuisine");
+            card.style.display = (cardCuisine === cuisine) ? "flex" : "none";
+          }
+        });
+      });
+    });
+  </script>
 </body>
-</html>
+</html>		
